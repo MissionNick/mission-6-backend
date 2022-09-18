@@ -3,16 +3,17 @@ import express, {Request, Response} from 'express';
 import {ObjectId} from 'mongodb';
 import {collections} from '../services/database.service';
 import cors from 'cors';
-
+import * as dotenv from 'dotenv';
 
 // Global Config
 
 export const productsRouter = express.Router();
+dotenv.config();
 
-const allowedOrigins = ['http://localhost:3000'];
-
+const allowedOrigins = ['localhost:3000'];
+console.log();
 const options: cors.CorsOptions = {
-  origin: allowedOrigins
+  origin: allowedOrigins,
 };
 
 productsRouter.use(cors(options));

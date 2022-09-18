@@ -1,9 +1,23 @@
 {
   "extends": "./node_modules/gts/tsconfig-google.json",
   "compilerOptions": {
-    "rootDir": ".",
-    "outDir": "build",
-    "esModuleInterop": true
+    "target": "es2015",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "es6"
+    ],
+    "outDir": "./build",
+    "esModuleInterop": true,
+    "baseUrl": "./src",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": false,
+    "strict": true
+  },
+  "ts-node": {
+    "esm": true
   },
   "include": [
     "src/**/*.ts",
