@@ -1,0 +1,13 @@
+version: '3.7'
+
+services:
+  mission6-middleware:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: production
+    container_name: mission6-middleware
+    expose:
+      - '8080'
+    ports:
+    - 8080:8080
