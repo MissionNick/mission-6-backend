@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 // External Dependencies
 import express, {Request, Response} from 'express';
 import {ObjectId} from 'mongodb';
@@ -10,7 +11,7 @@ import * as dotenv from 'dotenv';
 export const productsRouter = express.Router();
 dotenv.config();
 
-const allowedOrigins = ['localhost:3000'];
+const allowedOrigins = ['http://localhost:3000'];
 console.log();
 const options: cors.CorsOptions = {
   origin: allowedOrigins,
