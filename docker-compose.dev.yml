@@ -1,17 +1,28 @@
-version: '3.7'
-
+version: '3.8'
+name: pbtech
 services:
-  mission6-middleware:
+  middleware:
     build:
       context: .
       dockerfile: Dockerfile
       target: development
     volumes:
-      - ./:/usr/src/app
-      - /usr/scr/app/node_modules
-    container_name: mission6-middleware
+      - ./:/be/src/app
+      - /be/scr/app/node_modules
+    container_name: middleware
     expose:
       - '8080'
     ports:
-      - 8080:8080
+      - '8080:8080'
+    networks:
+      - pbtech
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok'
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
     command: npm run dev
+
+networks:
+  pbtech:
