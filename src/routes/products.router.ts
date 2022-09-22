@@ -2,7 +2,8 @@
 // External Dependencies
 import express, {Request, Response} from 'express';
 import {ObjectId} from 'mongodb';
-import {collections} from '../services/database.service';
+import { collections } from '../services/database.service';
+import sortArrayAlpha from "../helper/quickSortStr"
 import cors from 'cors';
 import * as dotenv from 'dotenv';
 
@@ -27,7 +28,7 @@ productsRouter.get('/', async (_req: Request, res: Response) => {
     // Call find with an empty filter object, meaning it returns all documents in the collection. Saves as product array to take advantage of types
     console.log('Hit the product server with a get');
     const products = await collections.products?.find({}).toArray();
-
+    // TO DO implement middleware result sort
     res.status(200).send(products);
   } catch (err) {
     if (err instanceof Error) {
