@@ -57,6 +57,5 @@ jobs:
           context: .
           push: true
           tags: missionnick/mission6-middleware:featurepush
-          secrets: |
-            GIT_AUTH_TOKEN=${{ secrets.MYTOKEN }}
+
 
