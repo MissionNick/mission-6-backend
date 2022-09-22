@@ -21,6 +21,6 @@
   },
   "include": [
     "src/**/*.ts",
-    "test/**/*.ts", "../../../Temp/quickSortStrArray.test.ts",
+    "test/**/*.ts", "src/__tests__/quickSortStrArray.test.ts",
   ]
 }

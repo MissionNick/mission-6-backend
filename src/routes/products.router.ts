@@ -1,11 +1,11 @@
 /* eslint-disable prettier/prettier */
 // External Dependencies
-import express, {Request, Response} from 'express';
-import {ObjectId} from 'mongodb';
+import express, { Request, Response } from 'express';
+import { ObjectId } from 'mongodb';
 import { collections } from '../services/database.service';
-import sortArrayAlpha from "../helper/quickSortStr"
 import cors from 'cors';
 import * as dotenv from 'dotenv';
+import Product from '../models/product';
 
 // Global Config
 
@@ -26,8 +26,8 @@ productsRouter.use(express.json());
 productsRouter.get('/', async (_req: Request, res: Response) => {
   try {
     // Call find with an empty filter object, meaning it returns all documents in the collection. Saves as product array to take advantage of types
-    console.log('Hit the product server with a get');
-    const products = await collections.products?.find({}).toArray();
+    console.log('Hit the product server with a get all');
+    const products = (await collections.products?.find({}).toArray()) as Product[];
     // TO DO implement middleware result sort
     res.status(200).send(products);
   } catch (err) {
@@ -44,11 +44,16 @@ productsRouter.get('/:id', async (req: Request, res: Response) => {
   const id = req?.params?.id;
 
   try {
-    const query = {_id: new ObjectId(id)};
-    const product = await collections.products?.findOne(query);
+    console.log(`Hit the product server with a get for product ${id}`);
+    //const query = { _id: new ObjectId(id) } ; FLakey?
+    const query = { 'product_name': id }
+    const product = await collections.products?.findOne(query) as Product;
+    console.log(`Result ${product}`)
 
     if (product) {
       res.status(200).send(product);
+    } else {
+      res.status(500).send(product);
     }
   } catch (err) {
     if (err instanceof Error) {
@@ -73,10 +78,10 @@ productsRouter.post('/', async (req: Request, res: Response) => {
 
     result
       ? res
-          .status(201)
-          .send(
-            `Successfully created a new product with id ${result.insertedId}`
-          )
+        .status(201)
+        .send(
+          `Successfully created a new product with id ${result.insertedId}`
+        )
       : res.status(500).send('Failed to create a new product.');
   } catch (err) {
     if (err instanceof Error) {
@@ -96,7 +101,7 @@ productsRouter.put('/:id', async (req: Request, res: Response) => {
 
   try {
     const updatedproduct = req.body;
-    const query = {_id: new ObjectId(id)};
+    const query = { _id: new ObjectId(id) };
     // $set adds or updates all fields
     const result = await collections.products?.updateOne(query, {
       $set: updatedproduct,
@@ -106,6 +111,7 @@ productsRouter.put('/:id', async (req: Request, res: Response) => {
       ? res.status(200).send(`Successfully updated product with id ${id}`)
       : res.status(304).send(`product with id: ${id} not updated`);
   } catch (err) {
+   
     if (err instanceof Error) {
       console.error(err);
       res.status(400).send(err.message);
@@ -122,7 +128,7 @@ productsRouter.delete('/:id', async (req: Request, res: Response) => {
   const id = req?.params?.id;
 
   try {
-    const query = {_id: new ObjectId(id)};
+    const query = { _id: new ObjectId(id) };
     const result = await collections.products?.deleteOne(query);
 
     if (result && result.deletedCount) {
