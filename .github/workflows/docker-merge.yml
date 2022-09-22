@@ -1,4 +1,4 @@
-name: Merge
+name: Merge to main
 
 # This workflow uses actions that are not certified by GitHub.
 # They are provided by a third-party and are governed by
@@ -6,8 +6,8 @@ name: Merge
 # documentation.
 
 on:
-  merge:
-    branches: [ "main" ]
+  push:
+    branches: ["master"]
 
 env:
   # Use docker.io for Docker Hub if empty
@@ -18,8 +18,8 @@ env:
 
 
 jobs:
-  build:
-
+  build-on-merge:
+     if: startsWith(github.event.head_commit.message, 'Merge pull request')
     runs-on: ubuntu-latest
     permissions:
       contents: read
