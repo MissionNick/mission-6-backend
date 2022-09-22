@@ -45,7 +45,8 @@ productsRouter.get('/:id', async (req: Request, res: Response) => {
 
   try {
     console.log(`Hit the product server with a get for product ${id}`);
-    const query = { _id: new ObjectId(id) } ;
+    //const query = { _id: new ObjectId(id) } ; FLakey?
+    const query = { 'product_name': id }
     const product = await collections.products?.findOne(query) as Product;
     console.log(`Result ${product}`)
 
