@@ -56,7 +56,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: user/app:featurepush
+          tags: missionnick/mission6-middleware:featurepush
       - name: Build and push Docker images
         uses: docker/build-push-action@v3.1.1
 
