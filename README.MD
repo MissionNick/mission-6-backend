@@ -11,5 +11,5 @@ Local container connection IP address must be set to the DB ipaddress. Local hos
 Git Workflow
 - Feature push .  feature/*   Push to image with tag featurepush
 - Pull request.   PR to main.      Push to image with tag PR
-- Merge.  Merege to main. Build test and push image with tag latest
+- Merge.  Merge to main. Build test and push image with tag latest
 .. TODO add "release" to trigger product release
